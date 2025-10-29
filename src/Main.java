@@ -1,3 +1,5 @@
+import entities.Employee;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,19 +10,20 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        List<String> list = new ArrayList<>();
+        List<Employee> list = new ArrayList<>();
         String path = "C:\\temp\\in2.txt";
 
         try(BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-            String name = br.readLine();
-            while (name != null){
-                list.add(name);
-                name = br.readLine();
+            String employeeCsv = br.readLine();
+            while (employeeCsv != null){
+                String[] fields = employeeCsv.split(",");
+                list.add(new Employee(fields[0], Double.parseDouble(fields[1])));
+                employeeCsv = br.readLine();
             }
             Collections.sort(list);
-            for (String s : list){
-                System.out.println( s);
+            for (Employee emp : list){
+                System.out.println( emp.getName() + ", " + emp.getSalary());
             }
 
         }
